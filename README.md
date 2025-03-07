@@ -30,27 +30,30 @@ pip install -r requirements.txt
 
 ```bash
 # 基本用法
-python run.py https://github.com/username/repo
+python run.py --url https://github.com/username/repo
 
 # 使用 GitHub 令牌（推荐，避免 API 速率限制）
-python run.py https://github.com/username/repo --token YOUR_GITHUB_TOKEN
+python run.py --url https://github.com/username/repo --token YOUR_GITHUB_TOKEN
 
 # 使用 LLM 处理（需要设置相应的 API 密钥环境变量）
-python run.py https://github.com/username/repo --use-llm --model gpt-3.5-turbo
+python run.py --url https://github.com/username/repo --use-llm --model gpt-3.5-turbo
 
 # 使用火山引擎模型
 export VOLCENGINE_API_KEY="your_volcengine_api_key"
-python run.py https://github.com/username/repo --use-llm --model volcengine/<ENDPOINT_ID>
+python run.py --url https://github.com/username/repo --use-llm --model volcengine/<ENDPOINT_ID>
 
 # 限制获取的 issues 数量
-python run.py https://github.com/username/repo --max-issues 50
+python run.py --url https://github.com/username/repo --max-issues 50
 
 # 指定输出目录
-python run.py https://github.com/username/repo --output-dir my_knowledge_base
+python run.py --url https://github.com/username/repo --output-dir my_knowledge_base
+
+# 从已有的 JSON 文件继续 LLM 处理（跳过获取 issues 步骤）
+python run.py --json data/github_issues_2023-07-25.json --model gpt-3.5-turbo
 ```
 
 脚本会自动：
-1. 获取指定仓库的 issues
+1. 获取指定仓库的 issues（或从 JSON 文件加载）
 2. 提取问答对
 3. 组织讨论
 4. 生成基本的 Markdown 知识库
