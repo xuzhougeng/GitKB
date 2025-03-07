@@ -24,6 +24,40 @@
 pip install -r requirements.txt
 ```
 
+## 快速开始
+
+项目提供了一个便捷的运行脚本，可以直接从 GitHub 仓库 URL 获取 issues 并生成知识库：
+
+```bash
+# 基本用法
+python run.py https://github.com/username/repo
+
+# 使用 GitHub 令牌（推荐，避免 API 速率限制）
+python run.py https://github.com/username/repo --token YOUR_GITHUB_TOKEN
+
+# 使用 LLM 处理（需要设置相应的 API 密钥环境变量）
+python run.py https://github.com/username/repo --use-llm --model gpt-3.5-turbo
+
+# 使用火山引擎模型
+export VOLCENGINE_API_KEY="your_volcengine_api_key"
+python run.py https://github.com/username/repo --use-llm --model volcengine/<ENDPOINT_ID>
+
+# 限制获取的 issues 数量
+python run.py https://github.com/username/repo --max-issues 50
+
+# 指定输出目录
+python run.py https://github.com/username/repo --output-dir my_knowledge_base
+```
+
+脚本会自动：
+1. 获取指定仓库的 issues
+2. 提取问答对
+3. 组织讨论
+4. 生成基本的 Markdown 知识库
+5. 如果启用 LLM，还会生成经过 LLM 处理的高质量知识库
+
+所有输出文件都会保存在指定的输出目录中（默认为 `output/`）。
+
 ## GitHub API 令牌
 
 为了避免从 GitHub 获取数据时的速率限制，建议使用个人访问令牌：
